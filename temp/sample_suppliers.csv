@@ -1,0 +1,4 @@
+name,bin_iin,region,categories,avg_contract_size,contracts_count,win_rate,risk_score
+TechSupply LLP,123456789012,Astana,"IT,Оборудование",80000000,10,0.6,10
+RoadBuild Co,987654321098,Almaty,"Construction,Дороги",60000000,15,0.7,15
+SoftLic LLP,555555555555,Almaty,"IT,ПО",20000000,8,0.5,5

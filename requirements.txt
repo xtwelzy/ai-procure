@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pydantic
+pydantic-settings
+python-multipart
+requests
+pandas
+streamlit
+aiogram==3.6.0
+ollama
+jinja2

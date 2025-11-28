@@ -1,0 +1,4 @@
+external_id,platform,customer_name,subject,description_raw,price_amount,price_currency,category,region
+T-001,gz.kz,Ministry of IT,Поставка серверов,"Закупка серверного оборудования",100000000,KZT,IT,Astana
+T-002,gz.kz,City Akimat,Ремонт дорог,"Капитальный ремонт дорожного полотна",50000000,KZT,Construction,Almaty
+T-003,com.kz,Bank Forte,Лицензии ПО,"Продление лицензий на ПО",15000000,KZT,IT,Almaty

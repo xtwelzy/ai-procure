@@ -1,0 +1,143 @@
+<html>
+
+<head>
+    <style>
+        #ai-chat-btn {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            background-color: #3b82f6;
+            color: white;
+            width: 66px;
+            height: 66px;
+            border-radius: 50%;
+            font-size: 32px;
+            text-align: center;
+            line-height: 56px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            transition: 0.2s;
+            z-index: 9999;
+        }
+
+        #ai-chat-btn:hover {
+            transform: scale(1.07);
+        }
+
+        #chat-window {
+            position: fixed;
+            bottom: 110px;
+            right: 28px;
+            width: 360px;
+            height: 520px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            display: none;
+            flex-direction: column;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        #chat-header {
+            background: #3b82f6;
+            padding: 14px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        #chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .msg-user {
+            background: #dbeafe;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            text-align: right;
+        }
+
+        .msg-ai {
+            background: #f1f5f9;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        #chat-input {
+            display: flex;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        #chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+        }
+
+        #chat-input button {
+            background: #3b82f6;
+            border: none;
+            padding: 10px 16px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+
+    <div id="ai-chat-btn">💬</div>
+
+    <div id="chat-window">
+        <div id="chat-header">AI-ассистент</div>
+        <div id="chat-messages"></div>
+
+        <div id="chat-input">
+            <input id="chat-text" placeholder="Ваш вопрос...">
+            <button onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <script>
+        let open = false;
+        const btn = document.getElementById("ai-chat-btn");
+        const win = document.getElementById("chat-window");
+        const msgBox = document.getElementById("chat-messages");
+
+        btn.onclick = () => {
+            open = !open;
+            win.style.display = open ? "flex" : "none";
+        };
+
+        function addMessage(text, cls) {
+            let div = document.createElement("div");
+            div.className = cls;
+            div.textContent = text;
+            msgBox.appendChild(div);
+            msgBox.scrollTop = msgBox.scrollHeight;
+        }
+
+        async function sendMessage() {
+            let text = document.getElementById("chat-text").value.trim();
+            if (!text) return;
+
+            addMessage(text, "msg-user");
+            document.getElementById("chat-text").value = "";
+
+            let resp = await fetch("http://127.0.0.1:8000/chat/send", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: text })
+            });
+
+            let data = await resp.json();
+            addMessage(data.reply, "msg-ai");
+        }
+    </script>
+
+    </body>
+
+</html>
